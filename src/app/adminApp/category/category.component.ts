@@ -42,7 +42,7 @@ export class CategoryComponent implements OnInit {
 
     // Pre-fill the form with the selected category
     this.categoryForm.patchValue({
-      category: data.category, // Ensure this key matches your data structure
+      category: data.category, 
     });
   }
 
@@ -55,7 +55,7 @@ export class CategoryComponent implements OnInit {
       this.categoryService.addData(formData);
     } else {
       this.categoryService.editCategory(this.editId, formData).then(() => {
-        this.editMode = false; // Reset edit mode after successful edit
+        this.editMode = false;
       });
     }
   }
