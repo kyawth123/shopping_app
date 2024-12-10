@@ -1,0 +1,17 @@
+<h3 routerLink="/items"><i class="fas fa-arrow-circle-left"></i></h3>
+<div class="container">
+  <h2>{{category.data.category}}</h2>
+  <div class="row row-cols-3">
+    <div class="col g-3 d-flex align-items-stretch" *ngFor="let item of items">
+      <div class="card" [routerLink]="['/item', item.id]">
+        <div class="card-header">
+          <img [src]="item.itemImgPath" class="img-fluid h-100 card-img center">
+        </div>
+        <div class="card-footer">
+          <h5>Name: {{item.itemName}}</h5>
+          <h5>Type: {{item.category.category}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

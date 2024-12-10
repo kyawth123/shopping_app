@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+<h3 routerLink="/all"><i class="fas fa-arrow-circle-left"></i></h3>
+<div class="container">
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+      <div class="row mt-4">
+      <div class="col-6 ">
+        <div class="itemImage">
+          <img [src]="imgSrc" class="img-fluid img-preview center"  >
+          <input type="file" class="form-control" id="itemImg" name="itemImg" accept="image/*" (change)="showPreview($event)" required
+          [ngClass]="{'is-invalid': fc.itemImgPath.touched && fc.itemImgPath.invalid}">
+        </div>
+        <div class="alert alert-danger" *ngIf="fc.itemImgPath.touched && fc.itemImgPath.invalid">Image is required for item</div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-floating">
+          <input type="text" class="form-control mt-3 mb-3" id="itemName" name="itemName" placeholder="Item Name" formControlName="itemName" required
+          [ngClass]="{'is-invalid': fc.itemName.touched && fc.itemName.invalid}">
+          <label for="itemName">Item Name</label>
+        </div>
+        <div class="alert alert-danger" *ngIf="fc.itemName.touched && fc.itemName.invalid">Item name is required</div>
+  
+        <select class="form-select mt-3 mb-3" formControlName="category" required>
+          <option disabled selected value="">Choose Category</option>
+          <option *ngFor="let category of categoryArray" [value]="category.id + '-' + category.data.category">
+            {{ category.data.category }}
+          </option>
+        </select>
+        
+  
+        <div class="form-floating">
+          <input type="text" class="form-control mt-3 mb-3" id="category" name="model" placeholder="Model" formControlName="model" required 
+          [ngClass]="{'is-invalid': fc.model.touched && fc.model.invalid}">
+          <label for="category">Model</label>
+        </div>
+        <div class="alert alert-danger" *ngIf="fc.model.touched && fc.model.invalid">Item model is required</div>
+  
+        <div class="form-floating">
+          <input type="text" class="form-control mt-3 mb-3" id="price" placeholder="Price" name="price" formControlName="price" required 
+          [ngClass]="{'is-invalid': fc.price.touched && fc.price.invalid}">
+          <label for="price">Price</label>
+        </div>
+        <div class="alert alert-danger" *ngIf="fc.price.touched && fc.price.invalid">Price is required</div>
+      </div>
+      <angular-editor name="details" formControlName="details" id="details" class="form-control mt-3 mb-3" placeholder="Item description here" required
+      [ngClass]="{'is-invalid': fc.details.touched && fc.details.invalid}"></angular-editor>
+      <div class="alert alert-danger" *ngIf="fc.details.touched && fc.details.invalid">You need to write description</div>
+      <button class="btn mb-4 p-2" type="submit">{{editMode? 'Edit' : 'Add Item'}}</button>
+    </div>
+    </form>
+</div>

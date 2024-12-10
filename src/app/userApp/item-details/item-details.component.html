@@ -1,0 +1,63 @@
+<h3 (click)="onBack()" class="border-0"><i class="fas fa-arrow-circle-left"></i></h3>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-5">
+            <img [src]="item.itemImgPath" class="img-fluid border-4 p-2" style="border-radius: 1%;">
+            <button (click)="buy()" class="butn btn mt-5">Add to your list <i class="fas fa-shopping-cart"></i></button>
+        </div>
+        <div class="col-1 "></div>
+        <div class="col-4">
+            <div class="box p-2">
+                <h5>Name</h5>
+                <p>{{item.itemName}}</p>
+            </div>
+            <div class="box p-2">
+                <h5>Type</h5>
+                <p>{{item.category.category}}</p> 
+            </div>
+            <div class="box  p-2">
+                <h5>Model</h5>
+                <p>{{item.model}}</p></div>
+            <div class="box p-2">
+                <h5>Price</h5>
+                <p>{{item.price}} Ks</p>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit(); reviewForm.reset()" class="mt-4 input-group">
+        <textarea name="review" id="review" class="form-control" placeholder="Review Us!" formControlName="reviews"></textarea>
+        <button class="review btn input-group-text" type="submit" [disabled]="!item">Review</button>
+    </form>
+
+    <div class=" mt-4">
+
+        <div class="btn-group mt-2 mb-3" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" (click)="detailMode = true" autocomplete="off" checked>
+            <label class="btn btn-outline-secondary" for="btnradio1">Descriptions</label>
+          
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" (click)="onReview()" autocomplete="off">
+            <label class="btn btn-outline-secondary" for="btnradio2">Reviews</label>
+          </div>
+
+
+          <div *ngIf="!detailMode">
+            <div *ngIf="needReview.length > 0; else noReviews">
+                <div *ngFor="let review of needReview">
+                    <div class="alert d-flex justify-content-between" style="background: #765D67;">
+                      <i>{{review.reviews}}</i>
+                      <b>{{time}}</b>
+                    </div>
+                  </div>
+            </div>
+            <ng-template #noReviews>
+                <div class="alert" ><h3 class="text-center">No reviews yet</h3></div>
+            </ng-template>
+
+          </div>
+          <div *ngIf="detailMode" class="alert" style="background: #765D67;">
+            {{item.details}}
+          </div>
+    </div>
+</div>
+

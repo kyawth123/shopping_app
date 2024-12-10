@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <button class="btn butn mt-1 mb-5 text-light" routerLink="/add">Add new item</button>
+    <table class="table table-hover table-bordered text-center ">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Item Name</th>
+                <th>Category</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Details</th>
+                <th>Item Image</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of itemArray; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{item.itemName}}</td>
+                <td>{{item.category.category}}</td>
+
+                <td>{{item.model}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.details}}</td>
+                <td>
+                    <img [src]="item.itemImgPath" class="img-fluid">
+                </td>
+                <td class="d-flex justify-content-center" style="background: #FFFFFF;">
+                    <button class="btn btn-sm border border-0" routerLink="/add" [queryParams]="{id: item.id}"><h5><i class="far fa-edit"></i></h5></button>
+                    <button class="btn btn-sm border border-0" (click)="onDelete(item.id, item.itemImgPath)"><h5><i class="fas fa-trash"></i></h5></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,39 @@
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import '../node_modules/ngx-toastr/toastr.css';
+
+
+.card {
+    cursor: pointer;
+    background: #2D222F;
+    color: #FADCD5;
+    border: 1px solid white;
+}
+
+.card:hover{
+    box-shadow: 0px 0px 50px 5px #4B2138;
+}
+
+.card-header, .card-body {
+    border: 1px solid white;
+}
+
+body {
+    background: #FADCD5;
+}
+
+i {
+    cursor: pointer;
+}
+
+.box {
+    border-bottom: 1px solid;
+}
+
+.review {
+    background: #4B2138;
+    color: white;
+}
+
+
+
+

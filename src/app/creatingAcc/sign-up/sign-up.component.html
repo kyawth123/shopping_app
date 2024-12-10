@@ -1,0 +1,67 @@
+<div class="background">
+  <div class="container pt-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-8 col-10">
+        <div class="card shadow">
+          <div class="card-body">
+            <form #signUpForm="ngForm" (ngSubmit)="onSignUp(signUpForm)">
+              <input
+                type="text"
+                class="form-control mt-3 mb-3"
+                name="userName"
+                ngModel
+                placeholder="User Name"
+                required
+              />
+              <input
+                type="email"
+                class="form-control mt-3 mb-3"
+                name="email"
+                ngModel
+                placeholder="Email"
+                required
+              />
+              <input
+                type="password"
+                class="form-control mt-3 mb-3"
+                name="password"
+                ngModel
+                placeholder="Password"
+                required
+              />
+              <div class="choose d-flex justify-content-around mt-3 mb-3">
+                <div class="form-check" >
+                  <input
+                    type="radio"
+                    name="role"
+                    value="admin"
+                    id="role1"
+                    ngModel
+                    required
+                  />
+                  <label for="role1">Admin</label>
+                </div>
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="user"
+                    id="role2"
+                    ngModel
+                    required
+                  />
+                  <label for="role2">User</label>
+                </div>
+              </div>
+              <button type="submit" class="btn form-control">Sign Up</button>
+            </form>
+          </div>
+          <div class="card-footer text-center">
+            <p routerLink="/sign-in">Already have an account? <b>Sign In</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
