@@ -1,13 +1,20 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <form #categoryForm="ngForm" (ngSubmit)="onSubmit(); categoryForm.reset()">
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit(); categoryForm.reset()">
         <div class="input-group mt-5">
-            <input type="text" class="form-control" placeholder="Add Category" name="category" id="category" [(ngModel)]="editData" #newcategory="ngModel" required
-            [ngClass]="{'is-invalid': newcategory.touched && newcategory.invalid}" >
-            <button class="btn input-group-text" type="submit" [disabled]="categoryForm.invalid">{{editMode? 'Edit': 'Submit'}}</button>
-          </div>
-          <div class="alert alert-danger mb-5" *ngIf="newcategory.touched && newcategory.invalid" > This field is required</div>
-    </form>        
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Add Category"
+            name="category"
+            id="category"
+            formControlName="category"
+            required
+            [ngClass]="{'is-invalid': fc.category.touched && fc.category.invalid}">
+          <button class="btn input-group-text" type="submit" [disabled]="categoryForm.invalid">{{editMode ? 'Edit' : 'Submit'}}</button>
+        </div>
+      </form>
+      
 
     <table class="table table-hover table-bordered text-center mt-5" >
         <thead>
@@ -27,4 +34,5 @@
         </tbody>
     </table>
 </div>
+
 
