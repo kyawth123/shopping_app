@@ -1,51 +1,62 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../shared/services/category.service';
-import { Category } from '../../class';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
-  styleUrl: './category.component.css'
+  styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
+  categoryArray: any;
+  editMode = false;
+  categoryForm: FormGroup;
+  editId: any;
 
-  @ViewChild('categoryForm') categoryForm : NgForm | any;
-
-  categoryArray:any;
-  editId:any;
-  editData:any;
-  editMode= false;
-
-  constructor(private categoryService: CategoryService) {}
+  constructor(
+    private categoryService: CategoryService,
+    private formBuilder: FormBuilder
+  ) {
+    this.categoryForm = this.formBuilder.group({
+      category: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
-    this.categoryService.fetchCategory().subscribe( (category) => {
-      this.categoryArray = category
-    })
+    this.categoryService.fetchCategory().subscribe((categories) => {
+      this.categoryArray = categories;
+    });
   }
 
-
-  onDelete(id:any) {
-    this.categoryService.deleteCategory(id)
+  get fc() {
+    return this.categoryForm.controls;
   }
 
-  onEdit(id:any, data:any) {
+  onDelete(id: any) {
+    this.categoryService.deleteCategory(id);
+  }
+
+  onEdit(id: any, data: any) {
     this.editId = id;
-    this.editData = data;
     this.editMode = true;
+
+    // Pre-fill the form with the selected category
+    this.categoryForm.patchValue({
+      category: data.category, // Ensure this key matches your data structure
+    });
   }
 
   onSubmit() {
-    const formData: Category = {
-      category: this.categoryForm.value.category
-    }
+    const formData = {
+      category: this.categoryForm.value.category,
+    };
+
     if (!this.editMode) {
       this.categoryService.addData(formData);
-    } else if (this.editMode) {
-      this.categoryService.editCategory(this.editId, formData);
-      this.editMode = false;
+    } else {
+      this.categoryService.editCategory(this.editId, formData).then(() => {
+        this.editMode = false; // Reset edit mode after successful edit
+      });
     }
-    }
-
+  }
 }
