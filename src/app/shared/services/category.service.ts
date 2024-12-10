@@ -17,7 +17,7 @@ export class CategoryService implements OnInit {
   ngOnInit(): void {}
 
   addData(data:any) {
-    this.afs.collection('category').add(data).then( docRef => {
+    return this.afs.collection('category').add(data).then( docRef => {
       this.toastr.success('Data inserted successfully!')
     }).catch(error => {
       this.toastr.error(error)
@@ -42,13 +42,8 @@ export class CategoryService implements OnInit {
     })
   }
 
-  editCategory(id:any, data:any) {
-    this.afs.doc(`category/${id}`).update(data).then( () => {
-      this.toastr.success('Updated successfully!')
-    })
-  }
+  editCategory(id: string, data: any){ 
+    return this.afs.doc(`category/${id}`).update(data).then(() => { 
+      this.toastr.success('Updated successfully!'); }); 
+    }
 }
-
-
-
-
